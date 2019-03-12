@@ -1,0 +1,20 @@
+pipeline{
+    agent any
+    stages{
+        stage('clone'){
+            steps{
+                git 'https://github.com/csenapati12/maven-samples.git'
+            }
+        }
+        stage('Sonar'){
+            steps{
+                 withSonarQubeEnv('sonar') {
+                 sh '''
+                mvn clean package sonar:sonar
+                '''
+                }
+            }
+        }
+        
+    }
+}
